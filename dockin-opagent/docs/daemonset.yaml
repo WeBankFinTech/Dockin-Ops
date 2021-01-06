@@ -1,0 +1,75 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    k8s-app: dockin-opagent
+  name: dockin-opagent
+  namespace: kube-system
+spec:
+  selector:
+    matchLabels:
+      k8s-app: dockin-opagent
+  template:
+    metadata:
+      labels:
+        k8s-app: dockin-opagent
+    spec:
+      hostIPC: true
+      hostPID: true
+      containers:
+        # - command:
+        #     - sh
+        #     - -c
+        #     - set -ex; sh /data/app/dockin-opagent/bin/start.sh
+          image: REGISTRY_ENDPOINT/dockin-opagent:0.1.0
+          imagePullPolicy: Always
+          name: dockin-opagent
+          resources:
+            limits:
+              cpu: "2000m"
+              memory: "500Mi"
+            requests:
+              cpu: "100m"
+              memory: "200Mi"
+          securityContext:
+            privileged: false
+          volumeMounts:
+            - mountPath: /data/logs/
+              name: logs-dir
+              readOnly: false
+            - mountPath: /data/docker/
+              name: docker-run
+              readOnly: false
+            - mountPath: /data/cgroup/
+              name: kubepods
+              readOnly: false
+            - mountPath: /logs/
+              name: log
+              readOnly: false
+            - mountPath: /data/dockin_prestop_info/
+                name: prestop-info
+                readOnly: false
+      hostNetwork: true
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - hostPath:
+            path: /data/logs/
+            type: DirectoryOrCreate
+          name: logs-dir
+        - hostPath:
+            path: /var/run/
+            type: DirectoryOrCreate
+          name: docker-run
+        - hostPath:
+            path: /sys/fs/cgroup/
+            type: DirectoryOrCreate
+          name: kubepods
+        - hostPath:
+            path: /data/logs/dockin-opagent
+            type: DirectoryOrCreate
+          name: log
+        - hostPath:
+            path: /data/dockin_prestop_info
+            type: DirectoryOrCreate
+            name: prestop-info

@@ -1,0 +1,2 @@
+appLogPath: "/data/logs/dockin-agent/app.log"
+logLevel: info

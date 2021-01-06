@@ -1,0 +1,3 @@
+appLogPath: "/data/logs/dockin-opserver/app.log"
+commandLogPath: "/data/logs/dockin-opserver/sshcommand.log"
+logLevel: info

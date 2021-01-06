@@ -1,0 +1,24 @@
+rm-address: http://127.0.0.1:10002/rmController
+batch-timeout: 5000
+http-port: 8084
+cmd-filter-type: blacklist
+while-list-update-time: 60000
+limits:
+  exec-forbidden:
+    - vi
+  file-max-size: 1000
+  upload-file-max-size: 500
+  download-file-max-size: 4000
+  vi-file-max-size: 10
+  k8s-qos: 40
+  k8s-burst: 60
+opagent-port: 8085
+redis:
+  expiration: 120000
+accounts:
+  - account:
+      user-name: app
+      passwd: 
+  - account:
+      user-name: pace
+      passwd: 

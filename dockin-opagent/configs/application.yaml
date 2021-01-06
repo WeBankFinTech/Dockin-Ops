@@ -1,0 +1,31 @@
+app:
+  env: uat
+  rm:
+    api: http://127.0.0.1:10002/rmController
+  container:
+    ticker: 30
+  http:
+    port: 8085
+  debug:
+    port: 10102
+  ims:
+    logroot: /data/logs/
+  docker:
+    sock: unix:///var/run/docker.sock
+  qos:
+    path: /data/cgroup
+  logs:
+    cmd-white-list:
+      - grep
+      - zgrep
+      - cat
+      - head
+      - tail
+      - awk
+      - uniq
+      - sort
+      - ls
+    cmd-timeout: 5000
+    max-file-size: 3000
+    max-line: 1000
+    root: /data/logs/
