@@ -22,7 +22,7 @@ import (
 
 func TestIsSubSystemId(t *testing.T) {
 	t.Run("right system id", func(t *testing.T) {
-		input := "5250"
+		input := "0000"
 		assert.True(t, IsSubSystemId(input))
 	})
 
@@ -43,37 +43,22 @@ func TestIsSubSystemId(t *testing.T) {
 }
 
 func TestIsPodSet(t *testing.T) {
-	t.Run("given uat podName", func(t *testing.T) {
-		assert.False(t, IsPodSet("dockin-wx-20191012-180011777-0"))
-	})
-	t.Run("given pt podName", func(t *testing.T) {
-		assert.False(t, IsPodSet("cps-hdcnbatch-10-108-130-198-0"))
-	})
-	t.Run("given prd podName", func(t *testing.T) {
-		assert.False(t, IsPodSet("cps-hdcnbatch-10-108-130-198"))
+	t.Run("given podName", func(t *testing.T) {
+		assert.False(t, IsPodSet("xxx"))
 	})
 	t.Run("test pod set name", func(t *testing.T) {
-		assert.True(t, IsPodSet("gns-query-0"))
-	})
-	t.Run("test pod set name", func(t *testing.T) {
-		assert.True(t, IsPodSet("5244-0"))
+		assert.True(t, IsPodSet("xxx"))
 	})
 }
 
 func TestIsPodName(t *testing.T) {
-	t.Run("given uat podName", func(t *testing.T) {
-		assert.True(t, IsPodName("dockin-wx-20191012-180011777-0"))
-	})
-	t.Run("given pt podName", func(t *testing.T) {
-		assert.True(t, IsPodName("cps-hdcnbatch-10-108-130-198-0"))
-	})
-	t.Run("given prd podName", func(t *testing.T) {
-		assert.True(t, IsPodName("cps-hdcnbatch-10-108-130-198"))
+	t.Run("given podName", func(t *testing.T) {
+		assert.True(t, IsPodName("xxx"))
 	})
 	t.Run("test pod set name", func(t *testing.T) {
-		assert.False(t, IsPodName("gns-query-0"))
+		assert.False(t, IsPodName("xxx"))
 	})
 	t.Run("test pod set name", func(t *testing.T) {
-		assert.False(t, IsPodName("5244-0"))
+		assert.False(t, IsPodName("xxx"))
 	})
 }
