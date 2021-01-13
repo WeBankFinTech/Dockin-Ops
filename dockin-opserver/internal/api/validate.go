@@ -185,9 +185,6 @@ func SetPodOption(o *model.OpsOption) error {
 	} else {
 		log.Logger.Infof("else get podInfo input=%s", input)
 		rmPodName := input
-		if IsStsName(input) {
-			rmPodName = input[:len(input)-2]
-		}
 		rmData, err := dockin.GetPodInfoByPodName(rmPodName)
 		if err != nil {
 			log.Logger.Warnf(err.Error())
@@ -229,17 +226,6 @@ func SetNamespace(o *model.OpsOption, inputNS string) {
 		log.Logger.Infof("use default namespace = %s, from yaml context", inputNS)
 		o.Namespace = inputNS
 	}
-}
-
-func GetPodName(name string) string {
-	if IsStsName(name) {
-		return name[:len(name)-2]
-	}
-	return name
-}
-
-func IsStsName(podName string) bool {
-	return false //env.IsTestEnv() && strings.HasSuffix(podName, "-0")
 }
 
 func ValidateExecRequest(req *http.Request, traceId string) (opts *model.OpsOption, err error) {
