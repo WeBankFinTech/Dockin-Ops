@@ -46,8 +46,7 @@ func GetPodStructFromRedis(podName string, RedisClient *redis.RedisClient) (*v1.
 }
 
 func GetHostIpByPod(opsOpts *model.OpsOption, pod *v1.Pod, cm *client.Manager, reqIp, traceId string) (string, error) {
-	hostIp := opsOpts.HostIP
-	hostIp = pod.Status.HostIP
+	hostIp := pod.Status.HostIP
 
 	_, err := cm.GetProxyClient(reqIp, opsOpts.Rule, opsOpts.ClusterId)
 	if err != nil {
@@ -65,15 +64,19 @@ func GetContainerIdByPod(podName string, pod *v1.Pod) (string, error) {
 
 	substr = "docker://"
 	containerList := pod.Status.ContainerStatuses
+	realCid := ""
 	for _, v := range containerList {
+		if realCid == "" {
+			realCid = v.ContainerID[strings.Index(v.ContainerID, substr)+len(substr):]
+		}
 		if !strings.Contains(podName, v.Name) {
 			continue
 		}
 		log.Logger.Infof("get containerId=%s", v.ContainerID)
-		realCid := v.ContainerID[strings.Index(v.ContainerID, substr)+len(substr):]
+		realCid = v.ContainerID[strings.Index(v.ContainerID, substr)+len(substr):]
 		log.Logger.Infof("get real containerId=%s", realCid)
-		return realCid, nil
+		break
 	}
-	return "", err
+	return realCid, err
 
 }

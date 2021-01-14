@@ -1,5 +1,5 @@
 BINARY="dockin-opserver"
-VERSION=1.0.0
+VERSION=0.1.0
 BUILD=`date +%FT%T%z`
 
 PACKAGES=`go list ./... | grep -v /vendor/`
@@ -10,10 +10,10 @@ OS=linux
 ARCH=amd64
 
 default:
-	@go mod tidy
-	@go mod vendor
-	@mkdir build
-	@cd build && GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ../cmd
+	go mod tidy
+	go mod vendor
+	mkdir -p build
+	cd build && GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ../cmd
 
 
 list:
@@ -32,9 +32,6 @@ fmt-check:
 		exit 1; \
 	fi;
 
-# test:
-#         @go test -cpu=1,2,4 -v -tags integration ./...
-
 vet:
 	@go vet $(VETPACKAGES)
 
@@ -42,13 +39,13 @@ clean:
 	@if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
 package: default
-	@mkdir -p release/${BINARY}
-	@mkdir -p release/${BINARY}/apps
-	@mkdir -p release/${BINARY}/bin
-	@cp build/${BINARY} release/${BINARY}/apps
-	@cp scripts/* release/${BINARY}/bin
-	@cp -r configs release/${BINARY}/
-	@chmod +rx release/${BINARY}/*
-	@cd release && tar -czf "${BINARY}_${VERSION}.tar.gz" ./${BINARY}
+	mkdir -p release/${BINARY}
+	mkdir -p release/${BINARY}/apps
+	mkdir -p release/${BINARY}/bin
+	cp build/${BINARY} release/${BINARY}/apps
+	cp scripts/* release/${BINARY}/bin
+	cp -r configs release/${BINARY}/
+	chmod +rx release/${BINARY}/*
+	cd release && tar -czf "${BINARY}_${VERSION}.tar.gz" ./${BINARY}
 
 .PHONY: default package fmt fmt-check install vet clean
