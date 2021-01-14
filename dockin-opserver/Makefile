@@ -1,5 +1,5 @@
 BINARY="dockin-opserver"
-VERSION=1.0.0
+VERSION=0.1.0
 BUILD=`date +%FT%T%z`
 
 PACKAGES=`go list ./... | grep -v /vendor/`
@@ -31,9 +31,6 @@ fmt-check:
 		echo "$${diff}"; \
 		exit 1; \
 	fi;
-
-# test:
-#         @go test -cpu=1,2,4 -v -tags integration ./...
 
 vet:
 	@go vet $(VETPACKAGES)

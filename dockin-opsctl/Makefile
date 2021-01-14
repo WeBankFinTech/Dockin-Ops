@@ -1,5 +1,5 @@
 BINARY="dockin-opsctl"
-VERSION=1.0.0
+VERSION=0.1.0
 BUILD=`date +%FT%T%z`
 
 PACKAGES=`go list ./... | grep -v /vendor/`
