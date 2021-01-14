@@ -1,5 +1,4 @@
 app:
-  env: uat
   rm:
     api: http://127.0.0.1:10002/rmController
   container:

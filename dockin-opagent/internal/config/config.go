@@ -41,7 +41,6 @@ var (
 
 type AgentConfig struct {
 	App struct {
-		Env string `yaml:"env"`
 		Rm  struct {
 			API string `yaml:"api"`
 		} `yaml:"rm"`
