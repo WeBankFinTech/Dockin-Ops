@@ -17,11 +17,7 @@ spec:
       hostIPC: true
       hostPID: true
       containers:
-        # - command:
-        #     - sh
-        #     - -c
-        #     - set -ex; sh /data/app/dockin-opagent/bin/start.sh
-          image: REGISTRY_ENDPOINT/dockin-opagent:0.1.0
+        - image: REGISTRY_ENDPOINT/dockin-opagent:0.1.0
           imagePullPolicy: Always
           name: dockin-opagent
           resources:
@@ -37,7 +33,7 @@ spec:
             - mountPath: /data/logs/
               name: logs-dir
               readOnly: false
-            - mountPath: /data/docker/
+            - mountPath: /var/run/
               name: docker-run
               readOnly: false
             - mountPath: /data/cgroup/
@@ -47,8 +43,8 @@ spec:
               name: log
               readOnly: false
             - mountPath: /data/dockin_prestop_info/
-                name: prestop-info
-                readOnly: false
+              name: prestop-info
+              readOnly: false
       hostNetwork: true
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
@@ -72,4 +68,4 @@ spec:
         - hostPath:
             path: /data/dockin_prestop_info
             type: DirectoryOrCreate
-            name: prestop-info
+          name: prestop-info

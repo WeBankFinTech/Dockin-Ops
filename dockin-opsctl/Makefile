@@ -1,5 +1,5 @@
 BINARY="dockin-opsctl"
-VERSION=1.0.0
+VERSION=0.1.0
 BUILD=`date +%FT%T%z`
 
 PACKAGES=`go list ./... | grep -v /vendor/`
@@ -10,10 +10,10 @@ OS=linux
 ARCH=amd64
 
 default:
-	@go mod tidy
-	@go mod vendor
-	@GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ./cmd  
-	# -ldflags=-X dockin-opsctl/internal/version.BuildDate=#date -X dockin-opsctl/internal/version.CommitId=#commitId -X dockin-opsctl/internal/version.Version=#version
+	go mod tidy
+	go mod vendor
+	mkdir -p build
+	GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ./cmd  
 
 list:
 	@echo ${PACKAGES}
@@ -30,9 +30,6 @@ fmt-check:
 		echo "$${diff}"; \
 		exit 1; \
 	fi;
-
-# test:
-#         @go test -cpu=1,2,4 -v -tags integration ./...
 
 vet:
 	@go vet $(VETPACKAGES)

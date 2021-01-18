@@ -10,10 +10,10 @@ OS=linux
 ARCH=amd64
 
 default:
-	@go mod tidy
-	@go mod vendor
-	@mkdir build
-	@cd build && GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ../cmd 
+	go mod tidy
+	go mod vendor
+	mkdir -p build
+	cd build && GOOS=${OS} GOARCH=${ARCH} go build -o ${BINARY} ../cmd 
 
 list:
 	@echo ${PACKAGES}
@@ -41,16 +41,16 @@ clean:
 	@if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
 package:
-	@mkdir -p release/${BINARY}
-	@mkdir -p release/${BINARY}/apps
-	@mkdir -p release/${BINARY}/bin
-	@cp build/${BINARY} release/${BINARY}/apps
-	@cp scripts/* release/${BINARY}/bin
-	@cp -r configs release/${BINARY}/
-	@chmod +rx release/${BINARY}/*
-	@cd release && tar -czf "${BINARY}_${VERSION}.tar.gz" ./${BINARY}
+	mkdir -p release/${BINARY}
+	mkdir -p release/${BINARY}/apps
+	mkdir -p release/${BINARY}/bin
+	cp build/${BINARY} release/${BINARY}/apps
+	cp scripts/* release/${BINARY}/bin
+	cp -r configs release/${BINARY}/
+	chmod +rx release/${BINARY}/*
+	cd release && tar -czf "${BINARY}_${VERSION}.tar.gz" ./${BINARY}
 
 docker-build: # default
-	@docker build -t ${BINARY}:${VERSION} .
+	docker build -t ${BINARY}:${VERSION} .
 
 .PHONY: default fmt fmt-check install vet clean docker-build

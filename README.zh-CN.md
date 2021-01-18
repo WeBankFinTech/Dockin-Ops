@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-English | [中文](README.zh-CN.md)
+[English](README.md) | 中文
 
 Dockin运维管理系统是安全的运维管理服务，优化exec执行性能、支持命令权限管理、支持场景运维编排。
 

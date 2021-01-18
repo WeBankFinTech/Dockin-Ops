@@ -17,13 +17,12 @@ package rm
 import (
 	"time"
 
-	"github.com/webankfintech/dockin-opserver/internal/api"
+	"github.com/pkg/errors"
 	"github.com/webankfintech/dockin-opserver/internal/client"
 	"github.com/webankfintech/dockin-opserver/internal/dockin"
 	"github.com/webankfintech/dockin-opserver/internal/log"
 	"github.com/webankfintech/dockin-opserver/internal/model"
 	"github.com/webankfintech/dockin-opserver/internal/utils/base"
-	"github.com/pkg/errors"
 )
 
 var (
@@ -61,8 +60,7 @@ func (g *RmOps) GetRmPodResource(echo *model.OpsOption, traceId string) (listRes
 		}
 		rrd = rmresult.Data
 	} else if base.IsPodName(echo.Name) {
-		podName := api.GetPodName(echo.Name)
-		rmresult, err := dockin.GetPodInfoByPodName(podName)
+		rmresult, err := dockin.GetPodInfoByPodName(echo.Name)
 		if err != nil {
 			log.Logger.Warnf("get pod by podname from rm failed, %#v, err %s,traceId=%s", echo, err.Error(), traceId)
 			return nil, err

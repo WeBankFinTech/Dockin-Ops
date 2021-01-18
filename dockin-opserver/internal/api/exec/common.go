@@ -22,7 +22,6 @@ import (
 	"time"
 
 	"github.com/webankfintech/dockin-opserver/internal/api"
-	"github.com/webankfintech/dockin-opserver/internal/cache/keys"
 	"github.com/webankfintech/dockin-opserver/internal/cache/redis"
 	"github.com/webankfintech/dockin-opserver/internal/client"
 	"github.com/webankfintech/dockin-opserver/internal/log"
@@ -31,7 +30,6 @@ import (
 	"github.com/webankfintech/dockin-opserver/internal/utils/ip"
 	"github.com/webankfintech/dockin-opserver/internal/utils/trace"
 
-	jsoniter "github.com/json-iterator/go"
 	"github.com/pkg/errors"
 	"go.uber.org/zap"
 	v1 "k8s.io/api/core/v1"
@@ -129,23 +127,4 @@ func (c *Common) Handle(writer http.ResponseWriter, req *http.Request) {
 
 func (c *Common) CommandHandle(writer http.ResponseWriter, req *http.Request) {
 	c.Handle(writer, req)
-}
-
-func (s *Common) getHostIp(opsOpts *model.OpsOption, reqIp, traceId string) (string, error) {
-	hostIp := opsOpts.HostIP
-	pod := v1.Pod{}
-	if podstr, err := s.RedisClient.Get(keys.PodYAMLKey(opsOpts.Name)); err == nil {
-		if err := jsoniter.Unmarshal([]byte(podstr.(string)), &pod); err == nil {
-			hostIp = pod.Status.HostIP
-			log.Logger.Infof("use host ip from redis cache, stsName=%s, HostIp=%s,traceId=%s", opsOpts.Name, hostIp, traceId)
-			return hostIp, nil
-		}
-	}
-
-	_, err := s.Cm.GetProxyClient(reqIp, opsOpts.Rule, opsOpts.ClusterId)
-	if err != nil {
-		log.Logger.Warnf("no proxy config found for ip=%s, rule=%s,traceId=%s", reqIp, opsOpts.Rule, traceId)
-		return "", fmt.Errorf("no proxy config found for ip=%s, rule=%s", reqIp, opsOpts.Rule)
-	}
-	return hostIp, nil
 }
