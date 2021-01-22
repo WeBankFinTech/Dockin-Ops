@@ -10,6 +10,16 @@ Dockin operation and maintenance management system is a safe operation and maint
 
 ![Architecture](docs/images/dockin.png)
 
+## Demo Show
+
+### Exec
+
+![2b95d08c-6154-42b8-b195-92ff0097c8d3.gif](https://i.loli.net/2021/01/19/529KgtDqbRcEB6M.gif)
+
+### CMDB
+
+![c84bcbdb-857e-4680-8174-5f18b160ac59.gif](https://i.loli.net/2021/01/19/wPiaLsvonOUNbzV.gif)
+
 ## Quick Guide
 
 ### 1. Preparation
