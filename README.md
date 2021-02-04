@@ -152,3 +152,9 @@ sh start.sh
 ```
 dockin-opsctl -h
 ```
+
+Currently, dockin-opsctl already supports the dockin-opserver address compiled by the configuration file. The path of other configuration files is: `$HOME/.opserver.yaml`. At the same time, it also supports the use of `-c` or `--config` parameters to prepare configuration files.
+The configuration file uses a yaml file, and currently there is only one configuration:
+```
+Opserver: 127.0.0.1:8084
+```
