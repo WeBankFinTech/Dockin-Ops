@@ -1,11 +1,24 @@
-# Dockin Ops-Dockin Operation service
+# Dockin Ops - Dockin Operation service
+
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
 English | [中文](README.zh-CN.md)
 
-Dockin container platform Operation service
+Dockin operation and maintenance management system is a safe operation and maintenance management service that optimizes exec execution performance and supports command authority management
 
+**For more Dockin components, please visit [https://github.com/WeBankFinTech/Dockin](https://github.com/WeBankFinTech/Dockin)**
 
 ![Architecture](docs/images/dockin.png)
+
+## Demo Show
+
+### Exec
+
+![2b95d08c-6154-42b8-b195-92ff0097c8d3.gif](https://i.loli.net/2021/01/19/529KgtDqbRcEB6M.gif)
+
+### CMDB
+
+![c84bcbdb-857e-4680-8174-5f18b160ac59.gif](https://i.loli.net/2021/01/19/wPiaLsvonOUNbzV.gif)
 
 ## Quick Guide
 
@@ -152,7 +165,6 @@ sh start.sh
 ```
 dockin-opsctl -h
 ```
-
 Currently, dockin-opsctl already supports the dockin-opserver address compiled by the configuration file. The path of other configuration files is: `$HOME/.opserver.yaml`. At the same time, it also supports the use of `-c` or `--config` parameters to prepare configuration files.
 The configuration file uses a yaml file, and currently there is only one configuration:
 ```
