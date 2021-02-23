@@ -23,10 +23,12 @@ import (
 	v1 "k8s.io/api/core/v1"
 )
 
+// NodeInformer used to watch the node event, send from apiserver
 type NodeInformer struct {
 	RedisClient *redis.RedisClient
 }
 
+// AddFunc watch for node add event
 func (n *NodeInformer) AddFunc(obj interface{}) {
 	node := obj.(*v1.Node)
 	log.Logger.Debugf("add node nodeName:%s,UID:%s", node.Name, node.UID)
@@ -42,6 +44,7 @@ func (n *NodeInformer) AddFunc(obj interface{}) {
 	log.Logger.Debugf("Set node key:%s success", key)
 }
 
+// UpdateFunc watch for node update event
 func (n *NodeInformer) UpdateFunc(oldObj, newObj interface{}) {
 	node := newObj.(*v1.Node)
 	oldNode := oldObj.(*v1.Node)
@@ -61,6 +64,7 @@ func (n *NodeInformer) UpdateFunc(oldObj, newObj interface{}) {
 
 }
 
+// DeleteFunc watch for node delete event
 func (n *NodeInformer) DeleteFunc(obj interface{}) {
 	node := obj.(*v1.Node)
 	log.Logger.Debugf("delete node:%s,Uid:%s", node.Name, node.UID)

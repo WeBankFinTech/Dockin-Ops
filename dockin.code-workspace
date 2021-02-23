@@ -1,0 +1,20 @@
+{
+	"folders": [
+        {
+            "path": "dockin-opsctl"
+        },
+        {
+            "path": "dockin-opagent"
+        },
+        {
+            "path": "dockin-opserver"
+        },
+		{
+            "path": "docs"
+        },
+		{
+			"path":"dockctl"
+		}
+    ],
+    "settings": {}
+}
