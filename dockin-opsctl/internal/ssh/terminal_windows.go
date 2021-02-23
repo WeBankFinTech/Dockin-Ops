@@ -12,31 +12,10 @@
  * the License.
  */
 
-package common
+// +build windows
+package ssh
 
-import (
-	"fmt"
-)
-
-var (
-	RemoteHost = "127.0.0.1:8084"
-	url = fmt.Sprintf("%s/v1/dockin/opserver", RemoteHost)
-)
-
-func SetRemoteHost(host string) {
-	RemoteHost = host
-	url = fmt.Sprintf("%s/v1/dockin/opserver", RemoteHost)
-}
-
-func GetCommonBaseUrl() string {
-	return url
-}
-
-func GetCommonUrlByCmd(cmd string) string {
-	fmt.Println(url)
-	return fmt.Sprintf("http://%s/%s", url, cmd)
-}
-
-func GetInteractiveUrlByCmd(cmd string) string {
-	return fmt.Sprintf("ws://%s/%s", url, cmd)
+// on windows just for mock, as no api to catch the terminal size change
+// maybe later found it
+func UpdateTerminalSize(winSize chan WindowSize, exitChan chan byte) {
 }

@@ -17,6 +17,7 @@ package cmd
 import (
 	"flag"
 	"fmt"
+	"github.com/mitchellh/go-homedir"
 	"os"
 	"runtime"
 	"runtime/pprof"
@@ -27,6 +28,7 @@ import (
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 	"k8s.io/cli-runtime/pkg/genericclioptions"
 	cliflag "k8s.io/component-base/cli/flag"
 )
@@ -251,9 +253,11 @@ var (
 	namespace     string
 	rule          string
 	kVersion      bool
+	cfgFile       string
 )
 
 func NewRootCmd() *cobra.Command {
+	cobra.OnInitialize(initConfig)
 	rootCmd := &cobra.Command{
 		Use:   "dockin-opsctl",
 		Short: "dockin-opsctl used to execute cmd in dockin-opserver",
@@ -302,6 +306,36 @@ func NewRootCmd() *cobra.Command {
 	rootCmd.AddCommand(NewSSHCmd(kubeConfigFlags))
 	rootCmd.AddCommand(NewAuthCmd(kubeConfigFlags))
 	return rootCmd
+}
+
+func initConfig(){
+	if cfgFile != "" {
+		viper.SetConfigFile(cfgFile)
+	} else {
+		home, err := homedir.Dir()
+		if err != nil {
+			fmt.Println(err)
+			os.Exit(1)
+		}
+
+		viper.AddConfigPath(home)
+		viper.SetConfigName(".opserver")
+		viper.SetConfigType("yaml")
+	}
+
+	if err := viper.ReadInConfig(); err != nil {
+		fmt.Printf("WARNING: Default Config '%s/.opserver.yaml' Not Found! \n", os.Getenv("HOME"))
+		fmt.Printf("WARNING: Using default Opserver Url: %s \n", common.GetCommonBaseUrl())
+	} else {
+		remoteHost := viper.GetString("Opserver")
+		if remoteHost == "" {
+			fmt.Println("ERROR: Opserver not set in config file.")
+			os.Exit(1)
+		}
+		common.SetRemoteHost(remoteHost)
+		fmt.Println(remoteHost)
+	}
+
 }
 
 func initProfiling() error {
@@ -359,4 +393,5 @@ func addProfilingFlags(flags *pflag.FlagSet) {
 	flags.StringVarP(&namespace, "namespace", "n", namespace, "If present, the namespace scope for this CLI request")
 	flags.StringVarP(&rule, "rule", "r", rule, "")
 	flags.BoolVarP(&kVersion, "version", "v", false, "show version and exit")
+	flags.StringVarP(&cfgFile, "config", "c", cfgFile, "using the specified config file.")
 }

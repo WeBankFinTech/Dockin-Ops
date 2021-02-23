@@ -148,5 +148,11 @@ sh start.sh
 dockin-opsctl -h
 ```
 
+当前，dockin-opsctl已支持使用配置文件制定dockin-opserver地址。默认的配置文件的路径为：`$HOME/.opserver.yaml`，同时，也支持使用`-c`或`--config`参数制定配置文件。
+配置文件使用yaml文件，当前只有一个配置：
+```
+Opserver: 127.0.0.1:8084
+```
+
 #### 3.3 dockin-opagent
 opagent以daemonSet的方式运行在k8s集群中，可直接参照项目internal/docs目录中的daemonSet样例，修改对应的镜像信息后直接应用到k8s集群即可
