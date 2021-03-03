@@ -39,6 +39,7 @@ func init() {
 	rmApiUrl = config.OpsConfig.RMAddress
 }
 
+// GetPodListInfoByHostIp return the podlist on the given machive according to the hostip
 func GetPodListInfoByHostIp(hostIp string) (*model.RmResultDto, error) {
 	if EmptyString == hostIp {
 		log.Logger.Warnf("host ip is empty")
@@ -68,6 +69,7 @@ func GetPodListInfoByHostIp(hostIp string) (*model.RmResultDto, error) {
 	return rmresult, nil
 }
 
+// GetPodInfoByPodIp return the pod information from rm according to the podIP
 func GetPodInfoByPodIp(podIp string) (*model.OneRmResultDto, error) {
 	if EmptyString == podIp {
 		log.Logger.Warnf("pod ip is empty")
@@ -94,6 +96,7 @@ func GetPodInfoByPodIp(podIp string) (*model.OneRmResultDto, error) {
 	return oneresult, nil
 }
 
+// GetPodInfoByPodName return the pod information from rm according to the pod name
 func GetPodInfoByPodName(podName string) (*model.OneRmResultDto, error) {
 	if EmptyString == podName {
 		log.Logger.Warnf("pod name is empty")
@@ -118,6 +121,7 @@ func GetPodInfoByPodName(podName string) (*model.OneRmResultDto, error) {
 	return rmresult, nil
 }
 
+// GetPodInfoByPodName return the pod information list from rm according to the subsystem name
 func GetPodInfoBySubsystem(subsystem, dcn, traceId string) (*model.RmResultDto, error) {
 	log.Logger.Infof("start to GetPodInfoBySubsystem,traceId=%s", traceId)
 	if EmptyString == subsystem && EmptyString == dcn {
@@ -156,6 +160,7 @@ func GetPodInfoBySubsystem(subsystem, dcn, traceId string) (*model.RmResultDto, 
 	return rmresult, nil
 }
 
+// GetClusterIdByHostIp return the clusterID which the machine located
 func GetClusterIdByHostIp(hostIp string) (string, error) {
 	if EmptyString == hostIp {
 		log.Logger.Warnf("host ip is empty")
@@ -185,12 +190,15 @@ func GetClusterIdByHostIp(hostIp string) (string, error) {
 	return cluseterInfo.Data.ClusterID, nil
 }
 
+// BatchGetPodInfoByPodName return the pod list by pod name list in batch
 func BatchGetPodInfoByPodName(podNameList []string) ([]byte, error) {
 	url := fmt.Sprintf("%s/%s", rmApiUrl, "getPodInfosByPodNameList")
 	payload, _ := jsoniter.Marshal(podNameList)
 	return rest.HttpPost(url, payload)
 }
 
+// GetPodInfoByPodSetId return the pod information by pod set id
+// the details about pod set is as follew:
 func GetPodInfoByPodSetId(podSetId string) (*model.RmResultData, error) {
 	url := fmt.Sprintf("%s/%s?podSetId=%s", rmApiUrl, "getPodInfoByPodSetId", podSetId)
 	content, err := rest.HttpGet(url, DefaultTimeout)

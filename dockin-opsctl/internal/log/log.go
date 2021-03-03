@@ -24,9 +24,9 @@ import (
 
 var (
 	_consoleDebug = "off"
-	_loggerFile *os.File
-	_loggerDir = "/tmp"
-	_enabled = false
+	_loggerFile   *os.File
+	_loggerDir    = "/tmp"
+	_enabled      = false
 )
 
 func init() {
@@ -60,7 +60,7 @@ func Debugf(format string, a ...interface{}) {
 	if _enabled {
 		funcName, _, line, _ := runtime.Caller(1)
 		fm := fmt.Sprintf("[%s]-%s:%d %s",
-			time.Now().Format("2006:01:02 03:04:15"), runtime.FuncForPC(funcName).Name(), line, format)
+			time.Now().Format("2006-01-02 15:04:05"), runtime.FuncForPC(funcName).Name(), line, format)
 		fmt.Fprintln(_loggerFile, fmt.Sprintf(fm, a...))
 	}
 }

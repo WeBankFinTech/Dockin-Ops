@@ -36,6 +36,7 @@ import (
 	v1 "k8s.io/api/core/v1"
 )
 
+// PodInformer used to watch the node event, send from apiserver
 type PodInformer struct {
 	RedisClient *redis.RedisClient
 	HttpMap     cmap.ConcurrentMap
@@ -48,6 +49,7 @@ type PreStopReq struct {
 	Command string `json:"command"`
 }
 
+// AddFunc watch for pod add event
 func (p *PodInformer) AddFunc(obj interface{}) {
 	pod, ok := obj.(*v1.Pod)
 	if !ok {
@@ -75,6 +77,7 @@ func (p *PodInformer) AddFunc(obj interface{}) {
 	log.Logger.Debugf("Set podName key:%s success", key)
 }
 
+// UpdateFunc watch for pod update event
 func (p *PodInformer) UpdateFunc(oldObj, newObj interface{}) {
 	pod, ok := newObj.(*v1.Pod)
 	if !ok {
@@ -103,6 +106,7 @@ func (p *PodInformer) UpdateFunc(oldObj, newObj interface{}) {
 
 }
 
+// getPodPreStopInfoAndSend get the prestop scripts by parse the yaml
 func (p *PodInformer) getPodPreStopInfoAndSend(obj interface{}) {
 	var (
 		pod    *v1.Pod
@@ -149,6 +153,7 @@ func (p *PodInformer) getPodPreStopInfoAndSend(obj interface{}) {
 	log.Logger.Debugf("end to getPodPreStopInfoAndSend podName=%s,uid=%s", pod.Name, uid)
 }
 
+// DeleteFunc watch for pod delete event
 func (p *PodInformer) DeleteFunc(obj interface{}) {
 	pod, ok := obj.(*v1.Pod)
 	if !ok {

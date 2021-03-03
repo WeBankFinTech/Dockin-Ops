@@ -1,7 +1,7 @@
 rm-address: http://127.0.0.1:10002/rmController
 batch-timeout: 5000
 http-port: 8084
-cmd-filter-type: blacklist
+cmd-filter-type: whitelist
 while-list-update-time: 60000
 limits:
   exec-forbidden:
@@ -18,7 +18,4 @@ redis:
 accounts:
   - account:
       user-name: app
-      passwd: 
-  - account:
-      user-name: pace
       passwd: 
