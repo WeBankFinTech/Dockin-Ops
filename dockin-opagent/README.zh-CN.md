@@ -1,4 +1,8 @@
 ## dockin-opagent
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+[English](README.md) | Chinese
+
 dockin的agent，通过daemonset的方式部署在各个kubernetes节点中，主要有如下功能
 - 挂载docker.sock，用于连接dockerd
 - 集成docker api，进行docker exec操作

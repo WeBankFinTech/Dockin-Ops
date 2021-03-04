@@ -1,4 +1,8 @@
 # Dockin-opserver
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+English| [Chinese](README.zh-CN.md) 
+
 dockin-opserver is an apiserver interface agent developed based on kubernetes client-go, which supports the following basic functions:
 - Multi-cluster management, can manage multiple sets of apiserver clusters at the same time
 - User account information management. There is no account management when the Pod itself is accessed. Therefore, as long as you have kubeconfig, you can access all Pods. For cross-departmental situations, there are security risks

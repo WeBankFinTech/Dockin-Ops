@@ -2,7 +2,7 @@
 
 [![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
 
-[English](README.md) | Chinese
+English| [Chinese](README.zh-CH.md) 
 
 Dockin operation and maintenance management system is a safe operation and maintenance management service that optimizes exec execution performance, supports command authority management, and supports scene operation and maintenance orchestration.
 

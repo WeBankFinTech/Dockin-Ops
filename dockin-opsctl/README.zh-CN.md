@@ -1,5 +1,9 @@
 ## dockin-opsctl
-类似kubectl客户端，二进制客户端，dockin-opsctl基于cobra开发的客户端，用于和docker-opserver建立连接，具有如下功能:
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+[English](README.md) | Chinese
+
+dockin-opsctl是一款类似kubectl客户端二进制客户端，基于cobra开发的客户端，用于和docker-opserver建立连接，具有如下功能:
 - 绑定当前输入输出
 - raw模式管理
 - 建立与dockin-opserver的http和websocket连接
@@ -13,6 +17,9 @@ const RemoteHost = "127.0.0.1:8084"
 ```
 
 执行项目中的Makefile即可
+```shell
+make
+```
 
 ### 运行
 可以通过./dockin-opsctl -h查看当前工具的使用方式

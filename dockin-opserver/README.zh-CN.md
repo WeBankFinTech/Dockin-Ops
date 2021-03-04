@@ -1,4 +1,8 @@
 # Dockin-opserver
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+[English](README.md) | Chinese
+
 dockin-opserver是基于kubernetes client-go开发的apiserver接口代理，支持如下基本功能：
 - 多集群管理，可以同时管理多套apiserver集群
 - 用户账号信息管理，Pod本身访问时没有账号管理的，因此只要具有kubeconfig就可以访问所有Pod，对跨部门等情况来说，存在安全隐患

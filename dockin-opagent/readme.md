@@ -1,4 +1,8 @@
 ## dockin-opagent
+[![License](https://img.shields.io/badge/license-Apache%202-4EB1BA.svg)](https://www.apache.org/licenses/LICENSE-2.0.html)
+
+English | [Chinese](README.zh-CN.md)
+
 The agent of dockin is deployed in each kubernetes node through daemonset, and it mainly has the following functions
 - Mount docker.sock to connect to dockerd
 - Integrate docker api for docker exec operation
