@@ -47,9 +47,9 @@ var (
 		# ssh according to podName
 		# 	dockin-opsctl ssh dockin-test-20191012-182050448-0 -u admin -p admin -r default
 		# ssh according to pod ip
-		# dockin-opsctl ssh 192.168.1.1 -u admin -p admin -r default
+		# dockin-opsctl ssh targetIP -u admin -p admin -r default
 		# ssh according to access token
-		# dockin-opsctl ssh 192.168.1.1 --access-token foiudepjfpghuqwipr1028390eu8fihyedpqrhfuwospkal
+		# dockin-opsctl ssh targetIP --access-token foiudepjfpghuqwipr1028390eu8fihyedpqrhfuwospkal
 `
 	sshExample = `dockin-opsctl ssh dockin-test-20191012-182050448-0 -u admin -p admin -r default`
 

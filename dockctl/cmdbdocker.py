@@ -25,12 +25,12 @@ class CmdbDocker():
         self.usage = '''
         用法 : cmdbdocker < 子系统名称 | 子系统编号 | 母机ip | 容器ip | 容器名称 > [ dcn列表 ]
 
-               dcn列表支持模糊匹配，可以使用 "1C1" "1D" "1D,1E" "1" ... 等形式
+               dcn列表支持模糊匹配，可以使用 "A" "B" "C" "E" ... 等形式
         
-        示例 : cmdbdocker gns-query 1C2
-        示例 : cmdbdocker 5036 1C1
-        示例 : cmdbdocker 10.106.11.11
-        示例 : cmdbdocker gns-query-10-106-11-11
+        示例 : cmdbdocker subsystem B
+        示例 : cmdbdocker 1111 A
+        示例 : cmdbdocker instance ip
+        示例 : cmdbdocker instance Name
         '''
 
     def analysis_resource_name(self):
